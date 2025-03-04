@@ -20,11 +20,14 @@ public class BackendContext(DbContextOptions<BackendContext> options) : DbContex
 
     public void Seed()
     {
+        Console.WriteLine("Seeding database...");
         new CustomerCategorySeeding(this).Seed();
         new DepartmentSeeding(this).Seed();
 
         new SupplierSeeding(this).Seed();
         new CustomerSeeding(this).Seed();
         new EmployeeSeeding(this).Seed();
+
+        Console.WriteLine("Database seeded successfully.");
     }
 }
