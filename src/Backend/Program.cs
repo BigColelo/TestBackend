@@ -3,7 +3,11 @@ using Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Aggiungi i servizi necessari per i controller
+builder.Services.AddControllers();
+
 // Add services to the container.
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,8 +29,24 @@ app.InitAndSeedBackendContest();
 // Register Swagger UI
 app.UseSwaggerDocumentation();
 
+// Configura la pipeline di richiesta HTTP
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthorization();
+
 // Register all the routes for the api
-app.UseApiRoutes();
+app.MapControllers();
 
 // Run the application
 app.Run();

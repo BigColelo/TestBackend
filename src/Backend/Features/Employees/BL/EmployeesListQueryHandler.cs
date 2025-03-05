@@ -10,9 +10,9 @@ namespace Backend.Features.Employees.BL
         {
             var query = context.Employees.AsQueryable();
             if (!string.IsNullOrEmpty(request.FirstName))
-                query = query.Where(q => q.FirstName.ToLower().Contains(request.FirstName.ToLower()));
+                query = query.Where(q => q.FirstName.ToLower().StartsWith(request.FirstName.ToLower())); 
             if (!string.IsNullOrEmpty(request.LastName))
-                query = query.Where(q => q.LastName.ToLower().Contains(request.LastName.ToLower()));
+                query = query.Where(q => q.LastName.ToLower().StartsWith(request.LastName.ToLower()));
 
             var data = await query.OrderBy(q => q.LastName).ThenBy(q => q.FirstName).ToListAsync(cancellationToken);
             var result = new List<EmployeesListQueryResponse>();

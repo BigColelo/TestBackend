@@ -9,21 +9,18 @@ internal class CustomersListQueryHandler(BackendContext context) : IRequestHandl
         // Filtro per SearchText sui campi Name ed Email
         if (!string.IsNullOrEmpty(request.SearchText))
         {
-            var lowerSearchText = request.SearchText.ToLower();
-            query = query.Where(c => c.Name.ToLower().Contains(lowerSearchText) || c.Email.ToLower().Contains(lowerSearchText));
+            //var lowerSearchText = request.SearchText.ToLower();
+            query = query.Where(c => c.Name.ToLower().StartsWith(request.SearchText.ToLower()) || c.Email.ToLower().StartsWith(request.SearchText.ToLower()));
         }
 
         // Ordinamento dinamico in base a SortBy
         if (!string.IsNullOrEmpty(request.SortBy))
         {
             if (request.SortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
-                //query = request.Descending ? query.OrderByDescending(c => c.Name) : query.OrderBy(c => c.Name);
                 query = query.OrderBy(c => c.Name);
             else if (request.SortBy.Equals("Email", StringComparison.OrdinalIgnoreCase))
-                //query = request.Descending ? query.OrderByDescending(c => c.Email) : query.OrderBy(c => c.Email);
                 query = query.OrderBy(c => c.Email);
-            else
-                query = query.OrderBy(c => c.Id);
+
         }
         else
         {
