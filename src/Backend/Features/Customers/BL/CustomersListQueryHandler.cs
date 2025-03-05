@@ -1,29 +1,3 @@
-public class CustomersListQuery : IRequest<List<CustomersListQueryResponse>>
-{
-    public string? SearchText { get; set; }
-    public string? SortBy { get; set; }  // Valori validi: "Name", "Email"
-    //public bool Descending { get; set; } = false;
-    public int Skip { get; set; } = 0;
-    public int Take { get; set; } = 20;
-}
-
-public class CustomersListQueryResponse
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = "";
-    public string Address { get; set; } = "";
-    public string Email { get; set; } = "";
-    public string Phone { get; set; } = "";
-    public string Iban { get; set; } = "";
-    public CustomersListQueryResponseCategory? Category { get; set; }
-}
-
-public class CustomersListQueryResponseCategory
-{
-    public string Code { get; set; } = "";
-    public string Description { get; set; } = "";
-}
-
 internal class CustomersListQueryHandler(BackendContext context) : IRequestHandler<CustomersListQuery, List<CustomersListQueryResponse>>
 {
     private readonly BackendContext _context = context;
@@ -56,8 +30,12 @@ internal class CustomersListQueryHandler(BackendContext context) : IRequestHandl
             query = query.OrderBy(c => c.Id);
         }
 
+        // Gestione del valore null per Skip e Take
+        int skipValue = request.Skip ?? 0; // Se Skip è null, usa 0 come valore predefinito
+        int takeValue = request.Take ?? 20; // Se Take è null, usa 20 come valore predefinito
+
         // Paginazione
-        query = query.Skip(request.Skip).Take(request.Take);
+        query = query.Skip(skipValue).Take(takeValue);
 
         // Include per caricare la relazione con CustomerCategory
         var data = await query.Include(c => c.CustomerCategory).ToListAsync(cancellationToken);
