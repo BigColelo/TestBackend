@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CustomersListQueryHandler>());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EmployeesListQueryHandler>());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<SupplierListQueryHandler>());
 builder.Services.AddScoped<IExportService, ExportService>();
 
 // Setup Database
@@ -29,5 +30,3 @@ app.UseApiRoutes();
 
 // Run the application
 app.Run();
-
-//EmployeesListQueryHandler
