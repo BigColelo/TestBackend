@@ -1,33 +1,33 @@
-using Backend.Features.Suppliers;
+using Backend.Features.Employees;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class SuppliersController : ControllerBase
+[Route("api/v1/[controller]")]
+public class EmployeesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public SuppliersController(IMediator mediator)
+    public EmployeesController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    /// Ottiene la lista dei fornitori.
+    /// Ottiene la lista dei dipendenti.
     /// </summary>
-    /// <param name="query">Parametri di query per filtrare i fornitori.</param>
-    /// <returns>Una lista di fornitori.</returns>
-    /// <response code="200">Restituisce la lista dei fornitori.</response>
+    /// <param name="query">Parametri di query per filtrare i dipendenti.</param>
+    /// <returns>Una lista di dipendenti.</returns>
+    /// <response code="200">Restituisce la lista dei dipendenti.</response>
     /// <response code="400">Se la richiesta è malformata o non sono stati trovati risultati.</response>
     /// <response code="500">Se si verifica un errore interno del server.</response>
-    [HttpGet("list")]
+    [HttpGet("[action]")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<List<SupplierListQueryResponse>>> GetSuppliersList(
-        [FromQuery] SupplierListQuery query)
+    public async Task<ActionResult<List<EmployeesListQueryResponse>>> GetEmployeesList(
+        [FromQuery] EmployeesListQuery query)
     {
         try
         {

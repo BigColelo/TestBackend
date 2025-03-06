@@ -2,7 +2,7 @@ using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class CustomersController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -22,7 +22,7 @@ public class CustomersController : ControllerBase
     /// <response code="200">Restituisce la lista dei clienti.</response>
     /// <response code="400">Se la richiesta è malformata.</response>
     /// <response code="500">Se si verifica un errore interno del server.</response>
-    [HttpGet("list")]
+    [HttpGet("[action]")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -51,11 +51,12 @@ public class CustomersController : ControllerBase
     /// <summary>
     /// Esporta la lista dei clienti in formato XML.
     /// </summary>
+    /// <param name="customersListQuery">Parametri di query per estrarre i clienti filtrati.</param>
     /// <returns>Un file XML contenente la lista dei clienti.</returns>
     /// <response code="200">Restituisce il file XML.</response>
     /// <response code="400">Se la richiesta è malformata.</response>
     /// <response code="500">Se si verifica un errore interno del server.</response>
-    [HttpPost("export")]
+    [HttpPost("[action]")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

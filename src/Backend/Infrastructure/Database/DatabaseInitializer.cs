@@ -1,14 +1,7 @@
 namespace Backend;
 
-static class RegistrationExtensions
+static class DatabaseInitializer
 {
-    public static void UseSwaggerDocumentation(this WebApplication app)
-    {
-        // Map Swagger to the custom url api-docs/swagger
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
-
     public static void InitAndSeedBackendContest(this WebApplication app)
     {
         // Make sure, that the database exists
