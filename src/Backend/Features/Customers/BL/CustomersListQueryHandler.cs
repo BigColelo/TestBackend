@@ -17,7 +17,8 @@ internal class CustomersListQueryHandler(BackendContext context) : IRequestHandl
         {
             if (request.SortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 query = query.OrderBy(c => c.Name);
-            else if (request.SortBy.Equals("Email", StringComparison.OrdinalIgnoreCase))
+            
+            if (request.SortBy.Equals("Email", StringComparison.OrdinalIgnoreCase))
                 query = query.OrderBy(c => c.Email);
 
         }
