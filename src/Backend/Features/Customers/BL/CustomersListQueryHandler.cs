@@ -9,7 +9,6 @@ internal class CustomersListQueryHandler(BackendContext context) : IRequestHandl
         // Filtro per SearchText sui campi Name ed Email
         if (!string.IsNullOrEmpty(request.SearchText))
         {
-            //var lowerSearchText = request.SearchText.ToLower();
             query = query.Where(c => c.Name.ToLower().StartsWith(request.SearchText.ToLower()) || c.Email.ToLower().StartsWith(request.SearchText.ToLower()));
         }
 
